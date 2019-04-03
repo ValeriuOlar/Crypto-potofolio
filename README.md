@@ -1,3 +1,5 @@
-Valeriu Olariu 
+## Valeriu Olariu 
 
-Rails Crypto Project
+# Rails Crypto Project
+
+https://api.coinmarketcap.com/v1/ticker/
