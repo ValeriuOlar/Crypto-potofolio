@@ -1,11 +1,19 @@
 class CryptosController < ApplicationController
   before_action :set_crypto, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
+  before_action :correct_user, only: [:edit, :update, :destroy, :show]
+  
 
   # GET /cryptos
   # GET /cryptos.json
   def index
     @cryptos = Crypto.all
+    require 'net/http'
+    require 'json'
+    @url = 'https://api.coinmarketcap.com/v1/ticker/'
+    @uri = URI(@url) 
+    @response = Net::HTTP.get(@uri)
+    @lookup_crypto = JSON.parse(@response)
   end
 
   # GET /cryptos/1
@@ -65,11 +73,18 @@ class CryptosController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_crypto
-      @crypto = Crypto.find(params[:id])
+     @crypto = Crypto.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def crypto_params
       params.require(:crypto).permit(:symbol, :string, :user_id, :cost_per, :amount_owned)
     end
+    #Creating a new mehod to define the correct user
+    
+    def correct_user
+      @correct = current_user.cryptos.find_by(id: params[:id])
+      redirect_to cryptos_path, notice: "You are Not Authorised to edit this entry" if @correct.nil?
+    end
+    
 end
