@@ -1,6 +1,6 @@
 ## Valeriu Olariu 
 
-# Rails Crypto Project
+# Rails Crypto Portofolio-Project
 
 https://api.coinmarketcap.com/v1/ticker/
 
