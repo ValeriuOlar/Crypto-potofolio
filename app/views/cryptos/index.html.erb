@@ -18,8 +18,8 @@
     <% if crypto.symbol %>
       <% crypto.symbol = crypto.symbol.upcase %>
       <% end %>
-            <tr>
-    <% for x in @lookup_crypto %>
+      <tr>
+    <% for x in @lookup_crypto %> 
         <% if crypto.symbol == x["symbol"] %>
                <td><%= x["name"] %></td> 
       <% end %>
